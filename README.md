@@ -29,3 +29,5 @@ if (!validate.check(data)) {
     console.log(validate.getError());
 }
 ```
+
+更多介绍请查看说明文档。
