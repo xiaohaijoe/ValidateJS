@@ -1,3 +1,12 @@
+// +----------------------------------------------------------------------
+// | Validate
+// +----------------------------------------------------------------------
+// | Document: https://github.com/xiaohaijoe/TimelineValidate/wiki/TimelineValidate-Document
+// +----------------------------------------------------------------------
+// | Author: xiaohaijoe <xiaohaijoe@hotmail.com>
+// +----------------------------------------------------------------------
+
+
 let arrayMerge = function (arr1, arr2) {
     if (arr1 == null) {
         arr1 = [];
@@ -479,6 +488,30 @@ class Validate {
     }
 
     /**
+     * 使用正则验证数据
+     * @access protected
+     * @param mixed     $value  字段值
+     * @param mixed     $rule  验证规则 正则规则或者预定义正则名
+     * @return boolean
+     */
+    static regex(value, rule) {
+        if (rule instanceof RegExp) {
+            return rule.test(value);
+        } else {
+            let pre = rule.indexOf("/^");
+            let last = rule.lastIndexOf("$/");
+            if (pre === -1 && last === -1) {
+                return new RegExp(rule).test(value);
+            } else if (pre >= 0 && last >= 0) {
+                let flag = rule.substr(last + 2, rule.length);
+                rule = rule.substring(pre + 2, last);
+                return new RegExp(rule, flag).test(value);
+            }
+        }
+        return false;
+    }
+
+    /**
      * 验证是否和某个字段的值一致
      * @access protected
      * @param mixed     $value  字段值
@@ -632,10 +665,11 @@ class Validate {
                 break;
             default:
                 if (typeof rule === 'function') {
-                    // 是否为数组
+                    // 是否为函数
                     result = rule(value);
                 } else {
-                    result = false;
+                    // 正则验证
+                    result = Validate.regex(value, rule)
                 }
                 break;
         }

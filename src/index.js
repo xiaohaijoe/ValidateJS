@@ -48,7 +48,7 @@ class Test {
     static message() {
         let rules = [
             ['name', 'require|max:25'],
-            ['age', 'number|between:1,120'],
+            ['age|年龄', 'number|between:1,120'],
             ['email', 'email'],
         ];
         let msg = [
@@ -58,10 +58,10 @@ class Test {
             ['age.between', '年龄只能在1-120之间'],
             ['email', '邮箱格式错误'],
         ];
-        let validate = new Validate(rules, msg)
+        let validate = new Validate(rules,msg)
         let data = {
             'name': 'hello world',
-            'age': 20,
+            'age': 125,
             'email': 'validate@xiaohaijoe.com'
         }
         if (!validate.check(data)) {
@@ -179,8 +179,10 @@ class Test {
         //     'repassword': '1234567',
         // };
         // let validate = new Validate(rule)
-        // console.log(validate.check(data));
-        // console.log(validate.getError());
+        // if(!validate.check(data)){
+        //     console.log(validate.getError());
+        // }
+
 
         // 验证某个字段是否和另外一个字段的值不一致，例如：
         // let rule = [['name', 'require|different:account']];
@@ -211,6 +213,22 @@ class Test {
         console.log(validate.check(data));
         console.log(validate.getError());
     }
+
+    static regexpValidate(){
+
+        let data = {
+          'name': 'ffff ',
+        };
+        // 如果正则中包含"|"符号，必须使用数组模式定义规则
+        // let rule = [['name', ['require','/^\\w+\\s+|\\d+$/i']]];
+        let rule = [['name', 'require|\\w+\\s+']];
+        let validate = new Validate(rule);
+        console.log(validate.check(data));
+        console.log(validate.getError());
+
+        // 静态调用
+        // console.log(Validate.regex(data.name, /^\\s*|\\d*$/));
+    }
 }
 
-Test.compareValidate();
+Test.regexpValidate();
