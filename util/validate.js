@@ -406,7 +406,7 @@ class Validate {
             return length >= min && length <= max;
         } else {
             // 指定长度
-            return length == rule;
+            return length === Number.parseInt(rule);
         }
     }
 
