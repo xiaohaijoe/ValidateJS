@@ -452,7 +452,7 @@ class Validate {
      * @param mixed     $rule  验证规则
      * @return bool
      */
-    static after($value, $rule) {
+    static after(value, rule) {
         return value >= rule;
     }
 
