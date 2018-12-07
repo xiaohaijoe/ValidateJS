@@ -161,9 +161,9 @@ class Test {
         // 验证某个字段的值不在某个范围，例如：
         // let rule = [['num', 'notBetween:1,10']];
         // 验证某个字段的值的长度是否在某个范围，例如：
-        // let rule = [['num', 'length:4,25']];
+        // let rule = [['num', 'len:4,25']];
         // 或者指定长度
-        // let rule = [['num', 'length:4']];
+        // let rule = [['num', 'len:4']];
         // 验证某个字段的值的最大长度，例如：
         // let rule = [['num', 'max:25']];
         // 验证某个字段的值的最小长度，例如：
@@ -229,6 +229,20 @@ class Test {
         // 静态调用
         // console.log(Validate.regex(data.name, /^\\s*|\\d*$/));
     }
+
+    static test(){
+        let data={
+            username: '',
+            mobile: '13728811363',
+            password: '',
+            rePassword: '',
+        }
+        let rule = [['mobile|手机号','require|len:11|number']];
+        let validate = new Validate(rule);
+        validate.check(data);
+        console.log(validate.getError());
+
+    }
 }
 
-Test.regexpValidate();
+Test.test();

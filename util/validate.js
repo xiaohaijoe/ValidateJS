@@ -66,7 +66,7 @@ let typeMsg = {
     'notIn': ':attribute不能在 :rule 范围内',
     'between': ':attribute只能在 :1 - :2 之间',
     'notBetween': ':attribute不能在 :1 - :2 之间',
-    'length': ':attribute长度不符合要求 :rule',
+    'len': ':attribute长度不符合要求 :rule',
     'max': ':attribute长度不能超过 :rule',
     'min': ':attribute长度不能小于 :rule',
     'after': ':attribute日期不能小于 :rule',
@@ -390,7 +390,7 @@ class Validate {
      * @param mixed     $rule  验证规则
      * @return bool
      */
-    static length(value, rule) {
+    static len(value, rule) {
         let length = 0;
         if (value instanceof Array) {
             length = value.length;
